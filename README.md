@@ -7,7 +7,7 @@ Provided any function (taking as input N M-dimensional matrices) performs Bootst
 
 This repository includes:
 
-test_Bootstrap_t.m ---> a script to test and show an example of usage of the provided functions \n
+test_Bootstrap_t.m ---> a script to test and show an example of usage of the provided functions /n
 get_mean_difference_Bootstrap_t.m ---> wrapper function encapsulating a mean difference (function replaceable by some user provided function) for the test script
 get_Bootstrap_t_ci_serial ---> core function implementing the Bootstrap-t algorithm (non-parallel implementation)
 get_Bootstrap_t_ci_parallel ---> core function implementing the Bootstrap-t algorithm (parallel implementation)
