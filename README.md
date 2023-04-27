@@ -3,7 +3,7 @@
 Matlab implementation of Efron's Bootstrap-t procedure to estimate confidence intervals. Follows the procedure described in:
 "Tibshirani, R. J., & Efron, B. (1993). An introduction to the bootstrap. Monographs on statistics and applied probability, 57(1)".
 
-Provided any function (taking as input N M-dimensional matrices) performs Bootstrap-t by resampling on a specified dimension of each input maxtrix and returns confidence intervals for all the outputs of the function (any K L-dimensional matrices). The code is designed to be general and easily adapt to any function data for which is hard to estimate confidence intervals otherwhise. The code can run the outer bootstrap resampling in a parallelized way to speed up computation time.
+Provided any function (taking as input N M-dimensional matrices) performs Bootstrap-t by resampling on a specified dimension of each input matrix and returns confidence intervals for all the outputs of the function (any K L-dimensional matrices). The code is designed to be general and easily adapt to any function data for which is hard to estimate confidence intervals otherwhise. The code can run the outer bootstrap resampling in a parallelized way to speed up computation time.
 The provided test script gives an example of usage for the estimation of confidence intervals for the difference of mean between two Gaussianly distributed variables.
 
 --------------------------------------------------------------------------------------------
