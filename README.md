@@ -24,6 +24,4 @@ This repository includes:
 
 Code written and tested in MATLAB R2019b.
 
-Author: Giulio Matteucci
-
-Date: 21/04/2023
+Giulio Matteucci 2023
