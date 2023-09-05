@@ -18,7 +18,7 @@ This repository includes:
 
 "get_Bootstrap_t_ci_parallel" ---> core function implementing the Bootstrap-t algorithm (parallel implementation)
 
-"cell2matlastdim.m" ---> utility function for cell array content concatenation
+"cell_to_mat_last_dim.m" ---> utility function for cell array content concatenation
 
 --------------------------------------------------------------------------------------------
 
