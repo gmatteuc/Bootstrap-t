@@ -1,10 +1,11 @@
 function [estimate,estimate_lCI,estimate_uCI,estimate_lSE,estimate_uSE] =...
     get_Bootstrap_t_ci_serial(Bfunc,Binp,Bdim,Brdim,confidence,B,N,seed,printeveryn)
-
-%GET_BOOTSTRAP_T_CI_SERIAL Perform Bootstrap-t (serial) for the estimation of confidence intervals
+% [estimate,estimate_lCI,estimate_uCI,estimate_lSE,estimate_uSE] =...
+%     get_Bootstrap_t_ci_serial(Bfunc,Binp,Bdim,Brdim,confidence,B,N,seed,printeveryn)
+% perform Bootstrap-t (serial) for the estimation of confidence intervals
 % and standard error intervals of a summary statistic (any custom function Bfunc).
 %
-% INPUTS:
+% inputs:
 % Bfunc: function handle of summary statistic (any custom function Bfunc)
 % Binp: cell array, inputs for the Bfunc
 % Bdim: vector, dimensions to resample for each input in Binp
@@ -15,14 +16,14 @@ function [estimate,estimate_lCI,estimate_uCI,estimate_lSE,estimate_uSE] =...
 % seed: integer, seed for random number generator
 % printeveryn: integer, every how any bootstrap repetitions to print advancement
 %
-% OUTPUTS:
+% outputs:
 % estimate: cell array, point estimates of the summary statistic
 % estimate_lCI: cell array, lower bound of the confidence interval
 % estimate_uCI: cell array, upper bound of the confidence interval
 % estimate_lSE: cell array, lower bound of the standard error interval
 % estimate_uSE: cell array, upper bound of the standard error interval
 %
-% EXAMPLE:
+% example:
 % confidence = 0.95;
 % B = 2500;
 % N = 25;
@@ -33,8 +34,7 @@ function [estimate,estimate_lCI,estimate_uCI,estimate_lSE,estimate_uSE] =...
 % [estimate, estimate_lCI, estimate_uCI, estimate_lSE, estimate_uSE] =...
 % get_Bootstrap_t_ci_serial(Bfunc,Binp,Bdim,Brdim,confidence,B,N,seed);
 %
-% AUTHOR: Giulio Matteucci
-% DATE: 21/04/2023
+% Giulio Matteucci 2023
 
 %% perform Bootstrap-t (serial)
 
@@ -150,7 +150,7 @@ for bo_idx=1:B
     % compute bootstrap Z
     for output_idx=1:O
         Znum=Bout{output_idx}-Bout_bo{output_idx,bo_idx};
-        catmat = cell2matlastdim(Bout_bi(output_idx,:)');
+        catmat = cell_to_mat_last_dim(Bout_bi(output_idx,:)');
         Zdenom=nanstd(catmat,[],ndims(catmat));
         BZvals{output_idx,bo_idx}=(Znum)./(Zdenom);
     end
@@ -165,8 +165,8 @@ end
 
 for output_idx=1:O
     % get confidence interval
-    catmat1 = cell2matlastdim(BZvals(output_idx,:)');
-    catmat2 = cell2matlastdim(Bout_bo(output_idx,:)');
+    catmat1 = cell_to_mat_last_dim(BZvals(output_idx,:)');
+    catmat2 = cell_to_mat_last_dim(Bout_bo(output_idx,:)');
     estimate_lCI{output_idx}=Bout{output_idx}-quantile(catmat1,1-(1-confidence)/2,ndims(catmat1)).*std(catmat2,[],ndims(catmat2));
     estimate_uCI{output_idx}=Bout{output_idx}-quantile(catmat1,(1-confidence)/2,ndims(catmat1)).*std(catmat2,[],ndims(catmat2));
     % get standard error interval

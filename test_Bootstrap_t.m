@@ -1,16 +1,17 @@
 % \\\\\\\\\\\\\\\\\\\\\\ test_Bootstrap_t \\\\\\\\\\\\\\\\\\\\\\
-
-% TEST BOOTSTRAP-t Test the accompanying code providing a flexible parallel
+%
+% Test the accompanying code providing a flexible parallel
 % implementation of the Bootstrap-t procedure to compute confidence intervals 
 % (CI) following the procedure described by the book:
+%
 % "Tibshirani, R. J., & Efron, B. (1993).
 % An introduction to the bootstrap.
-% Monographs on statistics and applied probability, 57(1)"
+% Monographs on statistics and applied
+% probability, 57(1)"
 %
-% AUTHOR: Giulio Matteucci
-% DATE: 21/04/2023
+% Giulio Matteucci 2023
 
-%% create test dataset to test Bootstrap-t functions
+%% create test dataset to test Bootstrap-t functions ----------------------
 
 % generate normal data
 Npoints=5000;
@@ -35,10 +36,13 @@ mean_diff_output = get_mean_difference_Bootstrap_t(InputData);
 
 % plot the histograms of input data
 f1=figure('units','normalized','outerposition',[0 0 1 1]);
+% set colors
+color1=[0.5, 0.5, 1];
+color2=[0, 0, 0.5];
 % subplot(2, 1, 1);
-histogram(InputData{1},50,'EdgeAlpha',0,'FaceColor',[1,0,0].*0.75);
+histogram(InputData{1},50,'EdgeAlpha',0,'FaceColor',color1);
 hold on;
-histogram(InputData{3},50,'EdgeAlpha',0,'FaceColor',[0,1,0].*0.75);
+histogram(InputData{3},50,'EdgeAlpha',0,'FaceColor',color2);
 xlabel('value');
 ylabel('frequency');
 title(['input data distributions ( Xinput1mu = ',num2str(Xinput1_mu),' - Xinput2mu = ',num2str(Xinput2_mu),' )']);
@@ -46,8 +50,8 @@ legend('Xinput1', 'Xinput2');
 % plot the mean difference as a vertical line
 y_limits = ylim;
 y_limits = [y_limits(1),1.1*y_limits(2)];
-line([mean_diff_output{2}, mean_diff_output{2}], y_limits, 'Color', [1,0,0].*0.75, 'LineWidth', 2, 'LineStyle', '--');
-line([mean_diff_output{3}, mean_diff_output{3}], y_limits, 'Color', [0,1,0].*0.75, 'LineWidth', 2, 'LineStyle', '--');
+line([mean_diff_output{2}, mean_diff_output{2}], y_limits, 'Color', color1, 'LineWidth', 2, 'LineStyle', '--');
+line([mean_diff_output{3}, mean_diff_output{3}], y_limits, 'Color', color2, 'LineWidth', 2, 'LineStyle', '--');
 hold off;
 % display the mean difference in the command window
 disp(['Mean Difference: ', num2str(mean_diff_output{1})]);
@@ -56,7 +60,7 @@ ylim(y_limits);
 grid on;
 set(gca,'fontsize',12)
 
-%% perform Bootstrap-t results
+%% perform Bootstrap-t results --------------------------------------------
 
 % initialize output structures
 orig_estimate=cell(1,3); %#ok<*PREALL>
@@ -96,7 +100,7 @@ tic2=tic;
 % maesure elapsed time (eta)
 toc2=toc(tic2);
 
-%% inspect Bootstrap-t results
+%% inspect Bootstrap-t results --------------------------------------------
 
 % set output names
 outputnames={'mean difference','mean 1','mean 2'};
@@ -145,8 +149,19 @@ grid on;
 legend(pl,'ground truth');
 set(gca,'fontsize',12)
 
+% set tolerance for test
+tolerance = 1e-3;
+% output results of test
+if and( abs(orig_estimate_lCI{i}-new_estimate_lCI{i}) > tolerance ,  abs(orig_estimate_uCI{i}-new_estimate_uCI{i}) > tolerance )
+    % display test result
+    fprintf('Test failed - confidence intervals do not coincide within set tolerance\n');
+else
+    % display test result
+    fprintf('Test passed - confidence intervals coincide within set tolerance\n');
+end
+
 % --------------------------------------------------------------------
-% Validation (performed on MATLAB R2019b):
+% validation (performed on MATLAB R2019b):
 % Example results of a test run comparing the CI from an unpaired ttest with the
 % bootstrap-estimated CI (Npoints=5000, B=10000, N=100, sig=0.33, mu=+/-0.33)
 % with "get_boostrap_parallel_fast_t_ci_BN2p" function:
@@ -156,12 +171,4 @@ set(gca,'fontsize',12)
 % Bootstrap-t estimate: 0.66774 - true value = 0.66000
 % Bootstrap-t lCI: 0.65496 - ttest2 lCI: 0.65495
 % Bootstrap-t uCI: 0.68065 - ttest2 uCI: 0.68053
-% --------------------------------------------------------------------
-% Disclaimer:
-% This software is provided "as-is" without any warranty, express or implied.
-% The author(s) and/or contributors shall not be held liable for any damages,
-% including but not limited to, direct, indirect, incidental, consequential,
-% or other losses, resulting from the use of, or inability to use, this software.
-% By using this software, you acknowledge that you understand and agree to this disclaimer.
-% Use at your own risk.
 % --------------------------------------------------------------------
