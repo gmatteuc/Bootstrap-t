@@ -22,6 +22,6 @@ This repository includes:
 
 --------------------------------------------------------------------------------------------
 
-Code written and tested in MATLAB R2019b
+Code written and tested in MATLAB R2019b.
 
-Giulio Matteucci 2023
+Giulio Matteucci 2023.
