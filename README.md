@@ -8,7 +8,7 @@ The provided test script gives an example of usage for the estimation of confide
 
 --------------------------------------------------------------------------------------------
 
-This repository includes:
+## This repository includes:
 
 "test_Bootstrap_t.m" ---> a script to test and show an example of usage of the provided functions
 
